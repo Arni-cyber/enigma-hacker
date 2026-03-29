@@ -1,0 +1,73 @@
+:root {
+    --green: #00ff41;
+    --dark-green: #003b00;
+    --bg: #050505;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--green);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#terminal {
+    width: 90%;
+    max-width: 850px;
+    height: 80vh;
+    border: 1px solid var(--green);
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+#stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    border-bottom: 1px dashed var(--green);
+    padding-bottom: 15px;
+}
+
+#game-area { flex-grow: 1; margin-top: 10px; }
+
+.input-line { display: flex; align-items: center; margin-top: 25px; }
+
+input {
+    background: transparent;
+    border: none;
+    color: var(--green);
+    font-family: inherit;
+    font-size: 1.2em;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+#log-feed {
+    height: 120px;
+    font-size: 0.85em;
+    overflow-y: hidden;
+    opacity: 0.8;
+    border-top: 1px solid var(--dark-green);
+    padding-top: 10px;
+}
+
+.scanline {
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 255, 65, 0.05);
+    position: absolute;
+    top: 0; left: 0;
+    animation: scan 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
