@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Hacker | Root Access</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="terminal">
+        <div class="scanline"></div>
+        <header>
+            [ SISTEMA OPERACIONAL ENIGMA v1.0.4 ]<br>
+            ESTADO: <span id="status-conexao" style="color: lime;">ONLINE</span>
+        </header>
+
+        <section id="stats">
+            <div>NICK: <b id="display-user">Visitante</b></div>
+            <div>PONTOS: <b id="display-pontos">0</b></div>
+            <div>COMBO: <b id="display-combo">x0</b></div>
+        </section>
+
+        <main id="game-area">
+            <div id="output-texto">> Inicializando kernel...</div>
+            <div id="pergunta-container">
+                <p id="texto-enigma">Conectando ao banco de dados de enigmas...</p>
+            </div>
+            <div class="input-line">
+                <span>$</span>
+                <input type="text" id="resposta-input" autofocus autocomplete="off" placeholder="digite a solução...">
+            </div>
+        </main>
+
+        <footer id="log-feed">
+            </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
