@@ -43,7 +43,7 @@ async function fazerLogin() {
 
     carregarEnigma();
     iniciarRealtimeRanking();
-}
+
     if (perfil && perfil.status === "eliminado") {
     alert("ACESSO NEGADO: Este terminal foi permanentemente bloqueado por falha crítica (Pontuação insuficiente).");
     location.reload();
