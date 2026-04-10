@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigma Hacker | Root Access</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Enigma Hacker</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="terminal">
-        <div class="scanline"></div>
-        <header>
-            [ SISTEMA OPERACIONAL ENIGMA v1.0.4 ]<br>
-            ESTADO: <span id="status-conexao" style="color: lime;">ONLINE</span>
-        </header>
 
-        <section id="stats">
-            <div>NICK: <b id="display-user">Visitante</b></div>
-            <div>PONTOS: <b id="display-pontos">0</b></div>
-            <div>COMBO: <b id="display-combo">x0</b></div>
-        </section>
+<div id="login-screen">
+    <div class="login-box">
+        <h2>🔐 ACESSO AO SISTEMA</h2>
 
-        <main id="game-area">
-            <div id="output-texto">> Inicializando kernel...</div>
-            <div id="pergunta-container">
-                <p id="texto-enigma">Conectando ao banco de dados de enigmas...</p>
-            </div>
-            <div class="input-line">
-                <span>$</span>
-                <input type="text" id="resposta-input" autofocus autocomplete="off" placeholder="digite a solução...">
-            </div>
-        </main>
+        <input id="login-email" placeholder="E-mail">
+        <input id="login-senha" type="password" placeholder="Senha">
 
-        <footer id="log-feed">
-            </footer>
+        <div class="login-buttons">
+            <button onclick="fazerLogin()">LOGIN</button>
+            <button onclick="fazerCadastro()">CADASTRAR</button>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+<div id="app">
+    <div id="terminal">
+
+        <div id="game">
+            <div id="stats">
+                <span id="display-user">---</span>
+                <span id="display-pontos">0</span>
+                <span id="display-combo">x0</span>
+            </div>
+
+            <p id="texto-enigma">Aguardando...</p>
+
+            <input id="resposta-input" placeholder="Digite..." autocomplete="off">
+
+            <div id="log-feed"></div>
+        </div>
+
+        <div id="side-panel">
+            <h3>RANKING</h3>
+            <div id="ranking-list"></div>
+            <div id="alert-box"></div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
 </body>
 </html>

@@ -1,29 +1,80 @@
 :root {
     --green: #00ff41;
-    --dark-green: #003b00;
     --bg: #050505;
 }
 
 body {
-    background-color: var(--bg);
-    color: var(--green);
-    font-family: 'Courier New', Courier, monospace;
     margin: 0;
-    height: 100vh;
+    background: var(--bg);
+    color: var(--green);
+    font-family: monospace;
+}
+
+/* CENTRAL */
+#app {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    height: 100vh;
 }
 
+/* LOGIN */
+#login-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.login-box {
+    padding: 30px;
+    border: 1px solid var(--green);
+    background: rgba(0,255,65,0.05);
+    box-shadow: 0 0 20px rgba(0,255,65,0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login-box input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 250px;
+    background: transparent;
+    border: 1px solid #003b00;
+    color: var(--green);
+}
+
+.login-buttons button {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid var(--green);
+    background: transparent;
+    color: var(--green);
+    cursor: pointer;
+}
+
+.login-buttons button:hover {
+    background: var(--green);
+    color: black;
+}
+
+/* TERMINAL */
 #terminal {
-    width: 90%;
-    max-width: 850px;
+    display: flex;
+    gap: 20px;
+}
+
+/* GAME */
+#game {
+    width: 600px;
     height: 80vh;
     border: 1px solid var(--green);
-    padding: 25px;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -31,43 +82,49 @@ body {
 #stats {
     display: flex;
     justify-content: space-between;
-    margin: 15px 0;
     border-bottom: 1px dashed var(--green);
-    padding-bottom: 15px;
 }
 
-#game-area { flex-grow: 1; margin-top: 10px; }
-
-.input-line { display: flex; align-items: center; margin-top: 25px; }
-
+/* INPUT */
 input {
     background: transparent;
     border: none;
     color: var(--green);
-    font-family: inherit;
-    font-size: 1.2em;
     outline: none;
-    width: 100%;
-    margin-left: 10px;
+    margin-top: 10px;
 }
 
+/* LOG */
 #log-feed {
-    height: 120px;
-    font-size: 0.85em;
-    overflow-y: hidden;
-    opacity: 0.8;
-    border-top: 1px solid var(--dark-green);
-    padding-top: 10px;
+    margin-top: auto;
+    font-size: 12px;
+    max-height: 150px;
+    overflow: hidden;
 }
 
-.scanline {
-    width: 100%;
-    height: 2px;
-    background: rgba(0, 255, 65, 0.05);
-    position: absolute;
-    top: 0; left: 0;
-    animation: scan 6s linear infinite;
-    pointer-events: none;
+/* RANKING */
+#side-panel {
+    width: 220px;
+    height: 80vh;
+    border: 1px solid var(--green);
+    padding: 10px;
 }
 
-@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+#ranking-list div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid rgba(0,255,65,0.1);
+}
+
+#ranking-list div:hover {
+    background: rgba(0,255,65,0.1);
+}
+
+/* ALERTA */
+#alert-box {
+    margin-top: 20px;
+    opacity: 0;
+    transition: 0.3s;
+    font-weight: bold;
+}
