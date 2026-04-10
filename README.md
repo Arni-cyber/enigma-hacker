@@ -12,7 +12,7 @@ O **Enigma Hacker** desafia os jogadores a resolverem problemas de lógica e sin
 - **Ranking Real-time:** Visualização instantânea das ultrapassagens e status dos adversários via Supabase Realtime.
 
 ## 🛠️ Tecnologias Utilizadas
-- **Frontend:** HTML5, CSS3 (Custom Terminal Theme), JavaScript (Vanilla).
+- **Frontend:** HTML, CSS (Custom Terminal Theme), JavaScript (Vanilla).
 - **Backend/Database:** [Supabase](https://supabase.com/) (PostgreSQL & Realtime engine).
 - **Hospedagem:** GitHub Pages.
 - **Ambiente de Dev:** GitHub Codespaces.
