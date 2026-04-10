@@ -30,4 +30,4 @@ A interface foi projetada para simular um terminal de comando Linux/Unix, utiliz
 2. Configure as variáveis de ambiente `URL_SUPABASE` e `KEY_SUPABASE` no arquivo `script.js`.
 3. Abra o `index.html` em qualquer navegador ou use a extensão *Live Server*.
 
-Desenvolvido por [Seu Nome] - Estudante de Análise e Desenvolvimento de Sistemas (ADS).Jogo de enigmas para devs. Stack: Vanilla JS + Supabase (Realtime DB). Mecânicas de combo, ranking global e eliminação por lógica de software.
+Desenvolvido por Arni cyber - Estudante de Análise e Desenvolvimento de Sistemas (ADS).Jogo de enigmas para devs. Stack: Vanilla JS + Supabase (Realtime DB). Mecânicas de combo, ranking global e eliminação por lógica de software.
