@@ -149,6 +149,12 @@ async function verificar() {
     } else {
         carregarEnigma();
     }
+    // ... dentro do fazerLogin() após carregar o perfil ...
+if (perfil && perfil.status === "eliminado") {
+    alert("ACESSO NEGADO: Este terminal foi permanentemente bloqueado por falha crítica (Pontuação insuficiente).");
+    location.reload();
+    return;
+}
 }
 
 // --- RANKING UPDATE ---
