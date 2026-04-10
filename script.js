@@ -10,50 +10,78 @@ let pontos = 0;
 let combo = 0;
 let rankingAnterior = [];
 
-// --- UTIL ---
 const normalizar = (txt) =>
     txt.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-// --- LOGIN ---
+// --- LOGIN COM CARREGAMENTO DE PERFIL ---
 async function fazerLogin() {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-senha').value;
 
-    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
+    const { data: authData, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) return alert(error.message);
 
-    const username = email.split('@')[0];
-    document.getElementById('display-user').innerText = username;
+    const user = authData.user;
+    document.getElementById('display-user').innerText = email.split('@')[0];
 
-    // animação login
-    const loginScreen = document.getElementById('login-screen');
-    loginScreen.style.opacity = "0";
-    setTimeout(() => loginScreen.style.display = "none", 400);
+    // Animação de entrada
+    document.getElementById('login-screen').style.opacity = "0";
+    setTimeout(() => document.getElementById('login-screen').style.display = "none", 400);
 
-    adicionarLog(`Bem-vindo ${username}`, "lime");
+    // CARREGAR DADOS DA TABELA PERFIS
+    const { data: perfil, error: perfilError } = await supabaseClient
+        .from('perfis')
+        .select('pontos')
+        .eq('id', user.id)
+        .single();
 
-    // carregar progresso
-    const { data } = await supabaseClient
-        .from('ranking')
-        .select('*')
-        .eq('username', username)
-        .maybeSingle();
-
-    if (data) {
-        pontos = data.pontos || 0;
-        combo = data.sequencia_acertos || 0;
-
+    if (perfil) {
+        pontos = perfil.pontos || 0;
         document.getElementById('display-pontos').innerText = pontos;
-        document.getElementById('display-combo').innerText = `x${combo}`;
-
-        adicionarLog("Progresso carregado.", "cyan");
+        adicionarLog("Perfil de operador sincronizado.", "cyan");
     }
 
     carregarEnigma();
-    atualizarRanking(username, pontos, combo);
-    atualizarTudoRanking();
     iniciarRealtimeRanking();
+}
+
+// --- VERIFICAR E SALVAR PONTOS NO PERFIL ---
+async function verificar() {
+    const campo = document.getElementById('resposta-input');
+    const resposta = campo.value;
+    if (!resposta) return;
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if (normalizar(resposta) === normalizar(enigmaAtual.resposta_correta)) {
+        combo++;
+        pontos += 5 * combo;
+        adicionarLog("✔ Acesso concedido.", "lime");
+    } else {
+        combo = 0;
+        pontos -= 10;
+        adicionarLog("✖ Falha na sintaxe.", "red");
+    }
+
+    // ATUALIZAR INTERFACE
+    document.getElementById('display-pontos').innerText = pontos;
+    document.getElementById('display-combo').innerText = `x${combo}`;
+    campo.value = "";
+
+    // ATUALIZAR BANCO (Tabela perfis)
+    if (user) {
+        await supabaseClient
+            .from('perfis')
+            .update({ pontos: pontos })
+            .eq('id', user.id);
+    }
+
+    if (pontos <= -50) {
+        alert("SISTEMA BLOQUEADO.");
+        location.reload();
+    } else {
+        carregarEnigma();
+    }
 }
 
 // --- CADASTRO ---
@@ -62,9 +90,8 @@ async function fazerCadastro() {
     const password = document.getElementById('login-senha').value;
 
     const { error } = await supabaseClient.auth.signUp({ email, password });
-
     if (error) alert(error.message);
-    else alert("Confirme seu e-mail!");
+    else alert("Cadastro efetuado! Verifique seu e-mail.");
 }
 
 // --- ENIGMAS ---
