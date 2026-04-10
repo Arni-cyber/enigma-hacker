@@ -68,26 +68,38 @@ async function verificar() {
         adicionarLog("✖ Falha na sintaxe.", "red");
     }
 
-    // ATUALIZAR INTERFACE
+    // 1. Atualiza a pontuação local e na interface
     document.getElementById('display-pontos').innerText = pontos;
-    document.getElementById('display-combo').innerText = `x${combo}`;
-    campo.value = "";
+    
+    const { data: { user } } = await supabaseClient.auth.getUser();
 
-    // ATUALIZAR BANCO (Tabela perfis)
+    // 2. Define o status baseado nos pontos
+    let statusAtual = pontos <= -50 ? "eliminado" : "ativo";
+
+    // 3. Salva no banco de forma obrigatória
     if (user) {
         await supabaseClient
-            .from('perfis')
-            .update({ pontos: pontos })
+            .from('perfis') // Use 'ranking' se for o nome da sua tabela
+            .update({ 
+                pontos: pontos,
+                status: statusAtual 
+            })
             .eq('id', user.id);
     }
 
-    if (pontos <= -50) {
-        alert("SISTEMA BLOQUEADO.");
-        location.reload();
-    } else {
-        carregarEnigma();
+    // 4. Lógica de interrupção imediata
+    if (statusAtual === "eliminado") {
+        adicionarLog("SISTEMA CORROMPIDO. ELIMINANDO OPERADOR...", "red");
+        setTimeout(() => {
+            alert("SISTEMA BLOQUEADO: Pontuação atingiu o limite crítico de -50.");
+            location.reload();
+        }, 1000);
+        return; // IMPORTANTE: interrompe a execução para não carregar o próximo enigma
     }
+
+    carregarEnigma();
 }
+
 
 // --- CADASTRO ---
 async function fazerCadastro() {
